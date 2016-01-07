@@ -1,4 +1,4 @@
-FROM solr:5.4
+FROM makuk66/docker-solr:4.10.4
 
 MAINTAINER "Björn Dieding" <bjoern@xrow.de>
 
