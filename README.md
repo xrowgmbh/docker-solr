@@ -5,7 +5,7 @@
 To run a single Solr server:
 
 ```console
-$ docker run --name my_solr -d -p 8983:8983 -t solr
+$ docker run --name my_solr -d -p 8983:8983 -t xrowgmbh/solr:latest
 ```
 
 Then with a web browser go to `http://localhost:8983/` to see the Admin Console (adjust the hostname for your docker host).

@@ -1,4 +1,4 @@
-FROM solr
+FROM solr:5.4
 
 MAINTAINER "Björn Dieding" <bjoern@xrow.de>
 
