@@ -8,6 +8,6 @@ ENV container=docker
 RUN sed -i -e 's/#SOLR_PORT=8983/SOLR_PORT=8983/' /opt/solr/bin/solr.in.sh
 
 COPY ezp-default /opt/solr/ezp-default
-COPY lib /opt/solr/lib
+
 # wget http://localhost:8983/solr/admin/cores?action=CREATE&name=ezpublish&instanceDir=/ezp-default/conf/&dataDir=data&persist=true&loadOnStartup=true
 CMD ["/opt/solr/bin/solr", "-f"]
