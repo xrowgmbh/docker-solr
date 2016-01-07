@@ -13,7 +13,7 @@ Then with a web browser go to `http://localhost:8983/` to see the Admin Console 
 To use Solr, you need to create a "core", an index for your data. For example:
 
 ```console
-$ docker exec -it --user=solr my_solr bin/solr create_core -c gettingstarted
+$ docker exec -it --user=solr my_solr bin/solr create_core -c ezpublish -d ezp-default/conf
 ```
 
 In the web UI if you click on "Core Admin" you should now see the "gettingstarted" core.
