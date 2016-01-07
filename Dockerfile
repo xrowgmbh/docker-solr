@@ -6,8 +6,6 @@ ENV container=docker
 
 EXPOSE 8983
 
-WORKDIR /opt/solr
+# no logic yet implemented
 
-ADD solr.sh /solr.sh
-
-CMD ["/solr.sh"]
+CMD ["/opt/solr/bin/solr", "-f"]
