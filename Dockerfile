@@ -6,6 +6,10 @@ MAINTAINER "Björn Dieding" <bjoern@xrow.de>
 
 ENV container=docker
 
+ENV SOLR_VERSION 4.10.4
+ENV SOLR solr-$SOLR_VERSION
+ENV SOLR_USER solr
+
 # Bug https://github.com/docker-solr/docker-solr/commit/949d6bece4e2ae1189d84210ae0b54b7ba87a37c
 # 5.4 Fix
 RUN sed -i -e 's/#SOLR_PORT=8983/SOLR_PORT=8983/' /opt/solr/bin/solr.in.sh
