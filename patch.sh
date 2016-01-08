@@ -2,15 +2,15 @@
 
 SOLR_CONFIG=/opt/solr/example/solr/ezp-default/conf/solrconfig.xml
 SOLR_SCHEMA=/opt/solr/example/solr/ezp-default/conf/schema.xml
-/usr/bin/sed -i '/type="text_icu"/d' ${SOLR_SCHEMA}
+sed -i '/type="text_icu"/d' ${SOLR_SCHEMA}
 
-/usr/bin/sed -i '/<fieldType name="text_icu" class="solr.TextField" positionIncrementGap="100" autoGeneratePhraseQueries="false">/,/<\/fieldType>/d' ${SOLR_SCHEMA}
-/usr/bin/sed -i 's@<str name=\"confFiles\">.*@<str name=\"confFiles\">schema.xml,elevate.xml,stopwords.txt</str>@g' ${SOLR_CONFIG}
-/usr/bin/sed -i 's@<useColdSearcher>.*@<useColdSearcher>true</useColdSearcher>@g' ${SOLR_CONFIG}
-/usr/bin/sed -i 's@<maxWarmingSearchers>.*@<maxWarmingSearchers>1</maxWarmingSearchers>@g' ${SOLR_CONFIG}
-/usr/bin/sed -i 's@<filterCache class=\"solr.FastLRUCache\".*@<filterCache class=\"solr.FastLRUCache\" size=\"512\" initialSize=\"512\" autowarmCount=\"32\" />@g' ${SOLR_CONFIG}
-/usr/bin/sed -i 's@<queryResultCache class=\"solr.LRUCache\".*@<queryResultCache class=\"solr.LRUCache\" size=\"512\" initialSize=\"512\" autowarmCount=\"32\" />@g' ${SOLR_CONFIG}
-/usr/bin/sed -i '
+sed -i '/<fieldType name="text_icu" class="solr.TextField" positionIncrementGap="100" autoGeneratePhraseQueries="false">/,/<\/fieldType>/d' ${SOLR_SCHEMA}
+sed -i 's@<str name=\"confFiles\">.*@<str name=\"confFiles\">schema.xml,elevate.xml,stopwords.txt</str>@g' ${SOLR_CONFIG}
+sed -i 's@<useColdSearcher>.*@<useColdSearcher>true</useColdSearcher>@g' ${SOLR_CONFIG}
+sed -i 's@<maxWarmingSearchers>.*@<maxWarmingSearchers>1</maxWarmingSearchers>@g' ${SOLR_CONFIG}
+sed -i 's@<filterCache class=\"solr.FastLRUCache\".*@<filterCache class=\"solr.FastLRUCache\" size=\"512\" initialSize=\"512\" autowarmCount=\"32\" />@g' ${SOLR_CONFIG}
+sed -i 's@<queryResultCache class=\"solr.LRUCache\".*@<queryResultCache class=\"solr.LRUCache\" size=\"512\" initialSize=\"512\" autowarmCount=\"32\" />@g' ${SOLR_CONFIG}
+sed -i '
 /<\/fields>/ i\
 <dynamicField name="*____loc" type="location" indexed="true" stored="true"\/>\
 <dynamicField name="*____loc_0_coordinate" type="double" indexed="true" stored="true"\/>\
