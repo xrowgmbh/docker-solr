@@ -16,5 +16,8 @@ COPY ezp-default/ /opt/solr/example/solr/ezp-default/
 COPY lib/ /opt/solr/example/solr/lib/
 COPY solr.xml /opt/solr/example/solr/solr.xml
 
+RUN chown -R $SOLR_USER:$SOLR_USER /opt/solr /opt/$SOLR
+
 # wget http://localhost:8983/solr/admin/cores?action=CREATE&name=ezpublish&instanceDir=/ezp-default/conf/&dataDir=data&persist=true&loadOnStartup=true
+
 CMD ["/opt/solr/bin/solr", "-f"]
