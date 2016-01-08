@@ -9,8 +9,8 @@ ENV container=docker
 COPY ezp-default/ /opt/solr/example/solr/ezp-default/
 COPY lib/ /opt/solr/example/solr/lib/
 COPY solr.xml /opt/solr/example/solr/solr.xml
-COPY patch.sh patch.sh
-RUN patch.sh
+COPY patch.sh /patch.sh
+RUN sh /patch.sh
 
 ENV SOLR_VERSION=4.10.4
 ENV SOLR=solr-$SOLR_VERSION
