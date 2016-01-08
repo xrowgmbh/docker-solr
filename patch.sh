@@ -16,12 +16,12 @@ sed -i '
 <dynamicField name="*____loc_0_coordinate" type="double" indexed="true" stored="true"\/>\
 <dynamicField name="*____loc_1_coordinate" type="double" indexed="true" stored="true"\/>\
 ' ${SOLR_SCHEMA}
-/usr/bin/sed -i '
+sed -i '
 /<\/schema>/ i\
      <copyField source="*_lk" dest="ezf_df_tags"\/>\
      <copyField source="*_k" dest="ezf_df_tags"\/>\
 ' ${SOLR_SCHEMA}
-/usr/bin/sed -i '
+sed -i '
 /<\/fields>/ i\
      <field name="ezf_df_tags" type="text" indexed="true" stored="true" multiValued="true" termVectors="true"\/>\
 ' ${SOLR_SCHEMA}
