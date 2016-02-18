@@ -10,7 +10,6 @@ COPY ezp-default/ /opt/solr/example/solr/ezp-default/
 COPY lib/ /opt/solr/example/solr/lib/
 COPY solr.xml /opt/solr/example/solr/solr.xml
 COPY patch.sh /patch.sh
-RUN sh /patch.sh
 
 ENV SOLR_VERSION=4.10.4
 ENV SOLR=solr-$SOLR_VERSION
@@ -25,6 +24,7 @@ RUN echo "SOLR_PORT=8983" >> /opt/solr/bin/solr.in.sh
 USER root
 RUN chown -R $SOLR_USER:$SOLR_USER /opt/solr /opt/$SOLR
 USER solr
+RUN sh /patch.sh
 # wget http://localhost:8983/solr/admin/cores?action=CREATE&name=ezpublish&instanceDir=/ezp-default/conf/&dataDir=data&persist=true&loadOnStartup=true
 
 CMD ["/opt/solr/bin/solr", "-f"]
