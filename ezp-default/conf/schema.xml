@@ -530,6 +530,8 @@
 
    <field name="_version_" type="long" indexed="true" stored="true"/>
 
+   <field name="meta_guid_ms" type="mstring" indexed="true" stored="true" /> <!-- Global unique ID ( per installation per object per language ) -->
+
    <!-- Installation information -->
    <field name="meta_installation_id_ms" type="mstring" indexed="true" stored="true" />               <!-- Installation identified -->
    <field name="meta_installation_url_ms" type="mstring" indexed="true" stored="true"/>
@@ -691,6 +693,11 @@
    <!--dynamicField name="*" type="ignored" multiValued="true" /-->
 
  </fields>
+
+ <!-- Field to use to determine and enforce document uniqueness.
+      Unless this field is marked with required="false", it will be a required field
+   -->
+ <uniqueKey>meta_guid_ms</uniqueKey>
 
  <!-- field for the QueryParser to use when an explicit fieldname is absent -->
  <defaultSearchField>ezf_df_text</defaultSearchField>
