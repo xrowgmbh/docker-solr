@@ -7,6 +7,7 @@ MAINTAINER "Björn Dieding" <bjoern@xrow.de>
 ENV container=docker
 
 COPY ezp-default/ /opt/solr/example/solr/ezp-default/
+COPY collection1/ /opt/solr/example/solr/collection1/
 COPY lib/ /opt/solr/example/solr/lib/
 COPY solr.xml /opt/solr/example/solr/solr.xml
 COPY patch.sh /patch.sh
