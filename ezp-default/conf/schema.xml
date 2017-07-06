@@ -596,7 +596,7 @@
        <dynamicField name="*_ms"        type="mstring"  indexed="true"  stored="true" termVectors="true"/>
        <dynamicField name="*_sl"       type="slong"   indexed="true"  stored="true"/>
        <dynamicField name="*_l"        type="long"    indexed="true"  stored="true"/>
-       <dynamicField name="*_t"        type="text"    indexed="true"  stored="true" termVectors="true"/>
+       <dynamicField name="*_t" type="text" indexed="true" stored="true" multiValued="true" omitNorms="false"/>
        <dynamicField name="*_mt"        type="text"    indexed="true"  stored="true" termVectors="true"/>
        <dynamicField name="*_tg"        type="textgen"    indexed="true"  stored="true" termVectors="true"/>
        <dynamicField name="*_tu"        type="text_icu"    indexed="true"  stored="true" termVectors="true"/>
