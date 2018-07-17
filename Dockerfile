@@ -1,31 +1,37 @@
 # docker build --rm --no-cache -t solr .
 
-FROM makuk66/docker-solr:4.10.4
+FROM solr:6.6.4
 
 MAINTAINER "Björn Dieding" <bjoern@xrow.de>
 
 ENV container=docker
 
-COPY ezp-default/ /opt/solr/example/solr/ezp-default/
-COPY collection1/ /opt/solr/example/solr/collection1/
-COPY lib/ /opt/solr/example/solr/lib/
-COPY solr.xml /opt/solr/example/solr/solr.xml
-COPY patch.sh /patch.sh
-
-ENV SOLR_VERSION=4.10.4
+ENV SOLR_VERSION=6.6.4
 ENV SOLR=solr-$SOLR_VERSION
 ENV SOLR_USER=solr
 
-# Bug https://github.com/docker-solr/docker-solr/commit/949d6bece4e2ae1189d84210ae0b54b7ba87a37c
-# 5.4 Fix
-RUN sed -i -e 's/#SOLR_PORT=8983/SOLR_PORT=8983/' /opt/solr/bin/solr.in.sh
-# 4.10 Fix
 RUN echo "SOLR_PORT=8983" >> /opt/solr/bin/solr.in.sh
 
 USER root
-RUN chown -R $SOLR_USER:$SOLR_USER /opt/solr /opt/$SOLR
+
+COPY ezplatform/ /opt/solr/server/ezplatform/
+
+RUN cp /opt/solr/server/solr/configsets/basic_configs/conf/currency.xml /opt/solr/server/ezplatform/conf/ \
+    && cp /opt/solr/server/solr/configsets/basic_configs/conf/solrconfig.xml /opt/solr/server/ezplatform/conf/ \
+    && cp /opt/solr/server/solr/configsets/basic_configs/conf/stopwords.txt /opt/solr/server/ezplatform/conf/ \
+    && cp /opt/solr/server/solr/configsets/basic_configs/conf/synonyms.txt /opt/solr/server/ezplatform/conf/ \
+    && cp /opt/solr/server/solr/configsets/basic_configs/conf/elevate.xml /opt/solr/server/ezplatform/conf/ \
+    && cp /opt/solr/server/solr/configsets/basic_configs/conf/elevate.xml /opt/solr/server/ezplatform/conf/ \
+    && cp /opt/solr/server/solr/solr.xml /opt/solr/server/ezplatform/
+
+RUN sed -i.bak '/<updateRequestProcessorChain name="add-unknown-fields-to-the-schema">/,/<\/updateRequestProcessorChain>/d' /opt/solr/server/ezplatform/conf/solrconfig.xml \
+ && sed -ie 's/${solr.autoSoftCommit.maxTime:-1}/${solr.autoSoftCommit.maxTime:20}/' /opt/solr/server/ezplatform/conf/solrconfig.xml
+RUN chown -R $SOLR_USER:$SOLR_USER /opt/solr /opt/solr
+
 USER solr
-RUN sh /patch.sh
-# wget http://localhost:8983/solr/admin/cores?action=CREATE&name=ezpublish&instanceDir=/ezp-default/conf/&dataDir=data&persist=true&loadOnStartup=true
+ENV SOLR_HOME /opt/solr/server/ezplatform
+
+#Would work but the web backend would not be reachable anymore
+#CMD ["solr-create", "-c", "ezplatform_core", "-d", "/opt/solr/server/ezplatform/conf"]
 
 CMD ["/opt/solr/bin/solr", "-f"]
